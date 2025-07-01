@@ -44,16 +44,15 @@ A modern, interactive web application for visualizing, comparing, and forecastin
 - **main** — Production-ready app, stable features.
 - **dev** — Latest development, experimental features.
 - **ml-forecast** — (Optional) ML/statistical AQI forecasting integration and scripts.
-- **data-scripts** — Data generation and charting scripts (Python).
+- **data-scripts** — (Optional) Data generation and charting scripts (Python).
 - **docs** — Documentation and guides.
 
 ### Key Files (in each branch as relevant):
 - `index.html` — Main web page, UI layout, and section containers.
 - `app.js` — Main frontend logic: data loading, real-time API calls, charts, map, forecast logic, and UI interactions.
 - `style.css` — Core styles for a clean, modern look.
-- `script.py` — Python script to generate realistic air quality datasets for the app.
-- `chart_script.py`, `chart_script_1.py`, `chart_script_2.py` — Charting/analysis scripts.
-- `.env.sample` — Template for API keys.
+-  (Optional)`script.py` — Python script to generate realistic air quality datasets for the app.
+
 - `README.md` — This documentation.
 
 ---
@@ -64,9 +63,8 @@ A modern, interactive web application for visualizing, comparing, and forecastin
    ```bash
    pip install pandas statsmodels plotly
    ```
-2. **Generate or update datasets:**
-   - Run `script.py` to create `air_quality_dataset.json` (see `data-scripts` branch).
-3. **Start the app:**
+
+2. **Start the app:**
    - Open `index.html` in your browser.
    - All features work offline with the sample dataset, or use your own API keys for live data.
 
@@ -82,7 +80,7 @@ A modern, interactive web application for visualizing, comparing, and forecastin
 ## 🌐 API Integration
 
 - Uses [OpenWeatherMap Air Pollution API](https://openweathermap.org/api/air-pollution) for real-time AQI and pollutant data.
-- API key is managed securely via `.env` (see `.env.sample`).
+- API key is managed securely via `.env` (see `.env.sample`) or in the file itself.
 
 ---
 

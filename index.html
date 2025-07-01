@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Forecaster</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-16">
+                    <h1 class="app-title">🌬️ Air Quality Forecaster</h1>
+                    <nav class="nav-menu hidden md:flex">
+                        <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+                        <button class="nav-btn" data-section="map">Map</button>
+                        <button class="nav-btn" data-section="charts">Charts</button>
+                        <button class="nav-btn" data-section="compare">Compare</button>
+                        <button class="nav-btn" data-section="forecast">Forecast</button>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-16">
+                    <div class="current-time" id="currentTime"></div>
+                    <button class="theme-toggle" id="themeToggle">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="dashboard">
+                <div class="dashboard-grid">
+                    <!-- Current AQI Display -->
+                    <div class="aqi-main-card card">
+                        <div class="card__body">
+                            <h2>Current Air Quality</h2>
+                            <div class="aqi-display">
+                                <div class="aqi-gauge" id="aqiGauge">
+                                    <div class="aqi-value" id="aqiValue">94</div>
+                                    <div class="aqi-label" id="aqiLabel">Moderate</div>
+                                </div>
+                                <div class="aqi-info">
+                                    <div class="location" id="currentLocation">New York, USA</div>
+                                    <div class="dominant-pollutant" id="dominantPollutant">
+                                        Dominant: <span>O3</span>
+                                    </div>
+                                    <div class="update-time" id="updateTime">
+                                        Last updated: 23 Jun 2025, 23:06
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health Recommendations -->
+                    <div class="health-card card">
+                        <div class="card__body">
+                            <h3>Health Recommendations</h3>
+                            <div class="health-status" id="healthStatus">
+                                <div class="status status--warning">Moderate</div>
+                                <div class="health-desc" id="healthDesc">
+                                    Air quality is acceptable for most people.
+                                </div>
+                                <ul class="health-recommendations" id="healthRecommendations">
+                                    <li>Generally safe for outdoor activities</li>
+                                    <li>Monitor symptoms if you're sensitive to air pollution</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pollutant Stats -->
+                    <div class="pollutant-grid">
+                        <div class="pollutant-card card" data-pollutant="pm25">
+                            <div class="card__body">
+                                <div class="pollutant-header">
+                                    <span class="pollutant-name">PM2.5</span>
+                                    <span class="pollutant-unit">µg/m³</span>
+                                </div>
+                                <div class="pollutant-value" id="pm25Value">28.5</div>
+                                <div class="pollutant-bar">
+                                    <div class="bar-fill" style="width: 28.5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pollutant-card card" data-pollutant="pm10">
+                            <div class="card__body">
+                                <div class="pollutant-header">
+                                    <span class="pollutant-name">PM10</span>
+                                    <span class="pollutant-unit">µg/m³</span>
+                                </div>
+                                <div class="pollutant-value" id="pm10Value">42.3</div>
+                                <div class="pollutant-bar">
+                                    <div class="bar-fill" style="width: 42.3%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pollutant-card card" data-pollutant="no2">
+                            <div class="card__body">
+                                <div class="pollutant-header">
+                                    <span class="pollutant-name">NO2</span>
+                                    <span class="pollutant-unit">µg/m³</span>
+                                </div>
+                                <div class="pollutant-value" id="no2Value">45.2</div>
+                                <div class="pollutant-bar">
+                                    <div class="bar-fill" style="width: 45.2%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pollutant-card card" data-pollutant="o3">
+                            <div class="card__body">
+                                <div class="pollutant-header">
+                                    <span class="pollutant-name">O3</span>
+                                    <span class="pollutant-unit">µg/m³</span>
+                                </div>
+                                <div class="pollutant-value" id="o3Value">87.1</div>
+                                <div class="pollutant-bar">
+                                    <div class="bar-fill" style="width: 87.1%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pollutant-card card" data-pollutant="co">
+                            <div class="card__body">
+                                <div class="pollutant-header">
+                                    <span class="pollutant-name">CO</span>
+                                    <span class="pollutant-unit">mg/m³</span>
+                                </div>
+                                <div class="pollutant-value" id="coValue">8.2</div>
+                                <div class="pollutant-bar">
+                                    <div class="bar-fill" style="width: 8.2%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pollutant-card card" data-pollutant="so2">
+                            <div class="card__body">
+                                <div class="pollutant-header">
+                                    <span class="pollutant-name">SO2</span>
+                                    <span class="pollutant-unit">µg/m³</span>
+                                </div>
+                                <div class="pollutant-value" id="so2Value">15.8</div>
+                                <div class="pollutant-bar">
+                                    <div class="bar-fill" style="width: 15.8%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 1em 0; display: flex; align-items: center; gap: 0.5em;">
+                  <input type="text" id="globalCitySearch" placeholder="Enter any city name" style="padding: 0.5em; width: 220px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em;">
+                  <button id="globalCityBtn" style="padding: 0.5em 1.2em; background: linear-gradient(90deg, #1FB8CD 0%, #5D878F 100%); color: #fff; border: none; border-radius: 4px; font-size: 1em; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(31,184,205,0.08); transition: background 0.2s;">
+                    <span style="display: flex; align-items: center; gap: 0.5em;"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' viewBox='0 0 24 24' stroke='currentColor' style='vertical-align: middle;'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16l4-4-4-4m8 8V8'/></svg>Show AQI</span>
+                  </button>
+                  <span id="globalCityError" style="color: #e74c3c; margin-left: 1em; font-size: 0.98em;"></span>
+                </div>
+            </section>
+
+            <!-- Map Section -->
+            <section class="content-section" id="map">
+                <div class="map-container">
+                    <div class="map-header">
+                        <h2>Global Air Quality Map</h2>
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #00e400;"></div>
+                                <span>Good (0-50)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #ffff00;"></div>
+                                <span>Moderate (51-100)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #ff7e00;"></div>
+                                <span>Unhealthy for Sensitive (101-150)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #ff0000;"></div>
+                                <span>Unhealthy (151-200)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mapContainer" class="map-view"></div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="content-section" id="charts">
+                <div class="charts-grid">
+                    <div class="chart-card card">
+                        <div class="card__body">
+                            <h3>Historical AQI Trends</h3>
+                            <canvas id="historicalChart" height="400"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card card">
+                        <div class="card__body">
+                            <h3>Pollutant Comparison</h3>
+                            <canvas id="pollutantChart" height="400"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card card">
+                        <div class="card__body">
+                            <h3>Cities AQI Comparison</h3>
+                            <canvas id="citiesChart" height="400"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card card">
+                        <div class="card__body">
+                            <h3>Pollutant Distribution</h3>
+                            <canvas id="distributionChart" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compare Section -->
+            <section class="content-section" id="compare">
+                <div class="compare-container">
+                    <div class="compare-header">
+                        <h2>Compare Cities</h2>
+                        <div class="search-container">
+                            <input type="text" id="citySearch" class="form-control" placeholder="Search cities...">
+                            <button class="btn btn--primary" id="addCityBtn">Add City</button>
+                        </div>
+                    </div>
+                    <div class="compare-table-container">
+                        <table class="compare-table" id="compareTable">
+                            <thead>
+                                <tr>
+                                    <th>City</th>
+                                    <th>AQI</th>
+                                    <th>Level</th>
+                                    <th>PM2.5</th>
+                                    <th>PM10</th>
+                                    <th>NO2</th>
+                                    <th>O3</th>
+                                    <th>CO</th>
+                                    <th>SO2</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Forecast Section -->
+            <section class="content-section" id="forecast">
+                <div class="forecast-container">
+                    <div class="forecast-header">
+                        <h2>Air Quality Forecast</h2>
+                        <select id="forecastCity" class="form-control">
+                            <!-- Options will be dynamically populated by JS -->
+                        </select>
+                    </div>
+                    <div class="forecast-content">
+                        <div class="forecast-chart-card card">
+                            <div class="card__body">
+                                <h3>5-Day AQI Forecast</h3>
+                                <canvas id="forecastChart" height="400"></canvas>
+                            </div>
+                        </div>
+                        <div class="ml-info-card card">
+                            <div class="card__body">
+                                <h3>ML Model Information</h3>
+                                <div class="ml-details">
+                                    <div class="ml-metric">
+                                        <span class="metric-label">Model Type:</span>
+                                        <span class="metric-value">Linear Regression</span>
+                                    </div>
+                                    <div class="ml-metric">
+                                        <span class="metric-label">Accuracy:</span>
+                                        <span class="metric-value">87.2%</span>
+                                    </div>
+                                    <div class="ml-metric">
+                                        <span class="metric-label">Training Data:</span>
+                                        <span class="metric-value">30 days historical</span>
+                                    </div>
+                                    <div class="ml-explanation">
+                                        <p>Our forecasting model uses historical AQI data, weather patterns, and seasonal trends to predict future air quality. The confidence intervals show the uncertainty range of predictions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

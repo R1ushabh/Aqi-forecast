@@ -1,8 +1,8 @@
-# 🌬️ Air Quality Forecaster
+🌬️ Air Quality Forecaster
+🚧 Prototype Notice:
+This is a prototype developed as part of the Bharatiya Antariksh Hackathon 2025 (Problem Statement 7). It will evolve into a full-scale web and mobile application with extended data sources including CPCB, IMD, and ISRO APIs.
 
-A modern, interactive web application for visualizing, comparing, and forecasting air quality (AQI) and pollutant levels for major cities worldwide. Built with real-time data, beautiful charts, and a clean UI.
-
----
+A modern, interactive web application for visualizing, comparing, and forecasting air quality (AQI) and pollutant levels for major cities and underserved rural regions in India. Built with real-time data, beautiful charts, and a clean UI.
 
 ## 🖼️ App Screenshots
 
@@ -19,84 +19,109 @@ A modern, interactive web application for visualizing, comparing, and forecastin
 ![ML Forecast](ML-forecast.png)
 
 ---
+🚀 Features (Currently Implemented)
+📊 Live AQI Dashboard:
 
-## 🚀 Features
+Real-time AQI using demo/sample data or OpenWeatherMap
 
-- 📊 **Live AQI Dashboard:**
-  - View current AQI, pollutant breakdown, and health recommendations for any city.
-- 🗺️ **Global Map:**
-  - Explore AQI and pollutant levels on an interactive world map.
-- 📈 **Trends & Charts:**
-  - Visualize historical AQI trends, pollutant distributions, and city comparisons.
-- ⚖️ **Compare Cities:**
-  - Add/remove cities, see real-time AQI and pollutant stats side-by-side.
-- 🔮 **Forecast:**
-  - Predict AQI for the next 5 days (statistical/random model; ML integration ready).
-- 💾 **Data Persistence:**
-  - User-selected cities and preferences are saved locally.
-- 📱 **Mobile Friendly:**
-  - Responsive design and mobile navigation.
+Pollution breakdown and zone visualization
 
----
+🗺️ Global/Local Map:
 
-## 🌳 Project Structure (Branch-wise)
+Interactive map with AQI overlays
 
-- **main** — Production-ready app, stable features.
-- **dev** — Latest development, experimental features.
-- **ml-forecast** — (Optional) ML/statistical AQI forecasting integration and scripts.
-- **data-scripts** — (Optional) Data generation and charting scripts (Python).
-- **docs** — Documentation and guides.
+📈 Trends & Analytics:
 
-### Key Files (in each branch as relevant):
-- `index.html` — Main web page, UI layout, and section containers.
-- `app.js` — Main frontend logic: data loading, real-time API calls, charts, map, forecast logic, and UI interactions.
-- `style.css` — Core styles for a clean, modern look.
--  (Optional)`script.py` — Python script to generate realistic air quality datasets for the app.
+Time-series charts for pollutants (PM2.5, NO₂)
 
-- `README.md` — This documentation.
+Historical trend visualization
 
----
+⚖️ Compare Locations:
 
-## ⚡ Getting Started
+Compare AQI and pollutants for multiple cities
 
-1. **Install Python dependencies (for data/scripts):**
-   ```bash
-   pip install pandas statsmodels plotly
-   ```
+🔮 Forecast (Basic Model):
 
-2. **Start the app:**
-   - Open `index.html` in your browser.
-   - All features work offline with the sample dataset, or use your own API keys for live data.
+5-day AQI prediction using basic/random/statistical model
 
----
+💾 Data Persistence:
 
-## 🔮 Forecasting
+User-selected cities and preferences stored locally
 
-- The Forecast page currently uses a simple statistical/random model for AQI prediction.
-- For real ML/statistical forecasting, see the `ml-forecast` branch and its instructions/scripts.
+📱 Responsive UI:
 
----
+Mobile-friendly web design
 
-## 🌐 API Integration
+🛠️ Planned Features (Upcoming)
+🛰️ Satellite-based pollution mapping (via ISRO Bhuvan)
 
-- Uses [OpenWeatherMap Air Pollution API](https://openweathermap.org/api/air-pollution) for real-time AQI and pollutant data.
-- API key is managed securely via `.env` (see `.env.sample`) or in the file itself.
+📡 Real-time AQI from CPCB and IMD APIs
 
----
+🤖 ML-based 24–72 hour AQI forecasting
 
-## ✨ Credits & Acknowledgements
+🧠 Health advisory system with alerts
 
-- Data: OpenWeatherMap, AQICN, and simulated datasets.
-- Charts: Chart.js, Plotly.
-- Maps: Leaflet.js.
-- UI: Custom CSS, responsive design.
+🌾 Pollution source detection (traffic, industrial, crop burning)
 
----
+📲 Flutter/React-based mobile app
 
-## 📣 License
+🌐 API Integration
+Currently Used:
+OpenWeatherMap Air Pollution API
 
+Upcoming:
+Ground Monitoring: CPCB, AQICN, OpenAQ
+
+Satellite Intelligence: ISRO Bhuvan
+
+Weather Data: IMD
+
+Mapping: Google Maps, Bhuvan Maps
+
+🌳 Project Structure (Branch-wise)
+main — Production-ready app, stable features.
+
+dev — Latest development, experimental features.
+
+ml-forecast — ML/statistical AQI forecasting integration and scripts.
+
+data-scripts — Data generation and charting scripts (Python).
+
+docs — Documentation and guides.
+
+⚡ Getting Started
+Install Python dependencies (for data/scripts):
+
+
+pip install pandas statsmodels plotly
+Start the app:
+
+Open index.html in your browser.
+
+Use offline dataset or insert real API key in app.js.
+
+🔮 Forecasting
+Uses a placeholder model (random/statistical) for 5-day AQI prediction.
+
+ML integration in progress in the ml-forecast branch.
+
+✨ Credits & Acknowledgements
+Data: OpenWeatherMap (current), CPCB/ISRO/IMD (planned)
+
+Charts: Chart.js, Plotly
+
+Maps: Leaflet.js
+
+UI: Custom CSS + Tailwind/Material UI
+
+📣 License
 MIT License. Free to use, modify, and share.
 
----
+Made with ❤️ for clean air and data-driven insights, especially for rural India.
 
-> Made with ❤️ for clean air and data-driven insights.
+
+
+
+
+
+

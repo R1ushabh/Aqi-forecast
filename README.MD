@@ -1,6 +1,6 @@
 🌬️ Air Quality Forecaster
 🚧 Prototype Notice:
-This is a prototype developed as part of the Bharatiya Antariksh Hackathon 2025 (Problem Statement 7). It will evolve into a full-scale web and mobile application with extended data sources including CPCB, IMD, and ISRO APIs.
+This is a prototype developed as part of a Hackathon . It will evolve into a full-scale web and mobile application with extended data sources including CPCB, IMD, and ISRO APIs.
 
 A modern, interactive web application for visualizing, comparing, and forecasting air quality (AQI) and pollutant levels for major cities and underserved rural regions in India. Built with real-time data, beautiful charts, and a clean UI.
 
